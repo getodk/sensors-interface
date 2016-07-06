@@ -28,6 +28,10 @@ android {
         versionName(versionCodeName)
     }
 
+    // set by command line arguments
+    publishNonDefault(gradle.ext.odkPublishConfig.toBoolean())
+    defaultPublishConfig(gradle.ext.odkDefaultPublishConfig)
+
     productFlavors {
         demo {
         }
@@ -78,6 +82,17 @@ android {
     compileOptions {
         sourceCompatibility javaVersion
         targetCompatibility javaVersion
+    }
+
+    variantFilter { variant ->
+        def names = variant.flavors*.name
+        if(gradle.ext.odkPublishConfig) {
+            if (names.contains(gradle.ext.odkPublishConfigName)) {
+                variant.setIgnore(false)
+            } else {
+                variant.setIgnore(true)
+            }
+        }
     }
 }
 
