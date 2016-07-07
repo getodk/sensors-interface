@@ -33,7 +33,7 @@ settingsScripts.each {
     apply from: it
 }
 
-include(sensorsInterfacesProjectChild)
+include(sensorsInterfaceProjectChild)
 
 if (libraryProjectPath.exists() && gradle.ext.useLocal) {
     // check if local library project is present
