@@ -1,4 +1,4 @@
-# opendatakit.sensors
+# opendatakit.sensorsinterface
 
 This project is __*actively maintained*__
 
@@ -8,7 +8,7 @@ It is part of the ODK 2.0 Android tools suite. User documentation for each ODK 2
 
 The Google group for user questions is: [opendatakit@](https://groups.google.com/forum/#!forum/opendatakit)
 
-It is a services APK that provides sensor management services for sensor drivers.
+Sensorsinterface is an Android library (AAR) that provides interfaces between the ODK sensor framework and sensor drivers.
 
 The developer [wiki](https://github.com/opendatakit/opendatakit/wiki) (including release notes) and
 [issues tracker](https://github.com/opendatakit/opendatakit/issues) are located under
