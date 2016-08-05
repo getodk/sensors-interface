@@ -41,7 +41,7 @@ public class SensorServiceProxy implements ServiceConnection {
 	protected final AtomicBoolean isBoundToService = new AtomicBoolean(false);
 	
 	public SensorServiceProxy(Context context) {
-		this(context, "org.opendatakit.sensors", "org.opendatakit.sensors.service.SensorService");
+		this(context, "org.opendatakit.sensorsframework", "org.opendatakit.sensors.service.SensorService");
 	}
 	
 	public SensorServiceProxy(Context context, String frameworkPackage, String frameworkService) {
