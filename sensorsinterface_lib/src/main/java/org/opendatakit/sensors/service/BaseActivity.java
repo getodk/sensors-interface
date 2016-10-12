@@ -154,7 +154,7 @@ import java.util.List;
 
    protected void launchSensorDiscovery(String appName) {
       Intent i = new Intent();
-      i.setClassName("org.opendatakit.sensorsframework",
+      i.setClassName("org.opendatakit.sensors",
           "org.opendatakit.sensors.ui.activity.AddSensorActivity");
       i.putExtra(ServiceConstants.APP_NAME_KEY, appName);
       startActivityForResult(i, SENSOR_DISCOVERY_RETURN);
