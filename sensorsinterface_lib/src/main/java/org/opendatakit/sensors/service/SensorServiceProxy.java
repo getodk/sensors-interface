@@ -23,6 +23,7 @@ import android.os.Bundle;
 import android.os.IBinder;
 import android.os.RemoteException;
 import android.util.Log;
+import org.opendatakit.sensors.SensorsConsts;
 
 import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -41,7 +42,7 @@ public class SensorServiceProxy implements ServiceConnection {
 	protected final AtomicBoolean isBoundToService = new AtomicBoolean(false);
 	
 	public SensorServiceProxy(Context context) {
-		this(context, "org.opendatakit.sensors", "org.opendatakit.sensorsframework.service.SensorService");
+		this(context, SensorsConsts.frameworkPackage, SensorsConsts.frameworkService);
 	}
 	
 	public SensorServiceProxy(Context context, String frameworkPackage, String frameworkService) {
@@ -79,9 +80,9 @@ public class SensorServiceProxy implements ServiceConnection {
 		isBoundToService.set(false);
 	}
 	
-	public void sensorConnect(String id, String appForDatabase) throws RemoteException{
+	public void sensorConnect(String id) throws RemoteException{
 		try {
-			sensorSvcProxy.sensorConnect(id, appForDatabase);
+			sensorSvcProxy.sensorConnect(id);
 		}
 		catch(RemoteException rex) {
 			rex.printStackTrace();
@@ -122,9 +123,10 @@ public class SensorServiceProxy implements ServiceConnection {
 	}
 	
 	// Start
-	public boolean startSensor(String id) throws RemoteException{
+	public boolean startSensor(String id, boolean transferToDb, String appForDatabase) throws
+		RemoteException{
 		try {
-			return sensorSvcProxy.startSensor(id);
+			return sensorSvcProxy.startSensor(id, transferToDb, appForDatabase);
 		} catch (RemoteException e) {
 			e.printStackTrace();
 			throw e;

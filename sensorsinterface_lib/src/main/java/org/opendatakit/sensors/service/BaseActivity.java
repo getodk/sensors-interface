@@ -78,17 +78,18 @@ import java.util.List;
       return false;
    }
 
-   protected void sensorConnect(String id, String appForDatabase) throws RemoteException {
+   protected void sensorConnect(String id) throws RemoteException {
       if (verifyConnection()) {
-         mwProxy.sensorConnect(id, appForDatabase);
+         mwProxy.sensorConnect(id);
          return;
       }
       throw new NullPointerException(MIDDLEWARE_PROXY_FAILED_MSG);
    }
 
-   protected boolean startSensor(String id) throws RemoteException {
+   protected boolean startSensor(String id,  boolean transferToDb, String appNameForDatabase) throws
+       RemoteException {
       if (verifyConnection()) {
-         return mwProxy.startSensor(id);
+         return mwProxy.startSensor(id, transferToDb, appNameForDatabase);
       }
       throw new NullPointerException(MIDDLEWARE_PROXY_FAILED_MSG);
    }
