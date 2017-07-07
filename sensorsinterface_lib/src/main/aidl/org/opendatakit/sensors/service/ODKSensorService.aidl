@@ -6,9 +6,9 @@ interface ODKSensorService {
    	 * Connect to a Sensor
    	 * @param id sensor id 
    	 */
-   	void sensorConnect( in String id, String appForDatabase);
+   	void sensorConnect( in String id);
     
-   	boolean startSensor(in String id);
+   	boolean startSensor(in String id, in boolean transferToDb, in String appNameForDatabase);
    	
    	boolean stopSensor(in String id);
    	

@@ -78,17 +78,18 @@ import java.util.List;
       return false;
    }
 
-   protected void sensorConnect(String id, String appForDatabase) throws RemoteException {
+   protected void sensorConnect(String id) throws RemoteException {
       if (verifyConnection()) {
-         mwProxy.sensorConnect(id, appForDatabase);
+         mwProxy.sensorConnect(id);
          return;
       }
       throw new NullPointerException(MIDDLEWARE_PROXY_FAILED_MSG);
    }
 
-   protected boolean startSensor(String id) throws RemoteException {
+   protected boolean startSensor(String id,  boolean transferToDb, String appNameForDatabase) throws
+       RemoteException {
       if (verifyConnection()) {
-         return mwProxy.startSensor(id);
+         return mwProxy.startSensor(id, transferToDb, appNameForDatabase);
       }
       throw new NullPointerException(MIDDLEWARE_PROXY_FAILED_MSG);
    }
@@ -154,7 +155,7 @@ import java.util.List;
 
    protected void launchSensorDiscovery(String appName) {
       Intent i = new Intent();
-      i.setClassName("org.opendatakit.sensorsframework",
+      i.setClassName("org.opendatakit.sensors",
           "org.opendatakit.sensors.ui.activity.AddSensorActivity");
       i.putExtra(ServiceConstants.APP_NAME_KEY, appName);
       startActivityForResult(i, SENSOR_DISCOVERY_RETURN);
