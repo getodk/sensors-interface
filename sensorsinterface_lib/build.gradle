@@ -13,6 +13,8 @@ libraryScripts.each {
 }
 
 apply plugin: 'com.android.library'
+apply plugin: "com.jfrog.artifactory"
+apply plugin: "maven-publish"
 
 group = groupId
 
@@ -30,20 +32,30 @@ android {
     }
 
     // set by command line arguments
-    publishNonDefault(gradle.ext.odkPublishConfig.toBoolean())
     defaultPublishConfig(gradle.ext.odkDefaultPublishConfig)
+
+    flavorDimensions "stage", "testing"
 
     productFlavors {
         demo {
+            dimension 'stage'
         }
 
         master {
+            dimension 'stage'
         }
 
         snapshot {
+            dimension 'stage'
+        }
+
+        basic {
+            dimension 'testing'
         }
 
         uitest {
+            minSdkVersion(uitestMinSDK)
+            dimension 'testing'
         }
     }
 
@@ -85,16 +97,6 @@ android {
         targetCompatibility javaVersion
     }
 
-    variantFilter { variant ->
-        def names = variant.flavors*.name
-        if(gradle.ext.odkPublishConfig) {
-            if (names.contains(gradle.ext.odkPublishConfigName)) {
-                variant.setIgnore(false)
-            } else {
-                variant.setIgnore(true)
-            }
-        }
-    }
 }
 
 configurations.all {
@@ -106,11 +108,59 @@ configurations.all {
 
 
 dependencies {
-    compile fileTree(include: '*.jar', dir: 'libs')
+    api fileTree(include: '*.jar', dir: 'libs')
+    api 'com.android.support:support-annotations:27.0.2'
+    api 'com.android.support:support-v13:27.0.2'
 
     // Testing dependencies
-    testCompile 'junit:junit:4.12'
-    androidTestCompile 'com.android.support.test:runner:0.5'
-	androidTestCompile 'junit:junit:4.12'
-    androidTestCompile 'com.android.support:support-annotations:25.3.1'
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'com.android.support.test:runner:1.0.1'
+	androidTestImplementation 'junit:junit:4.12'
+    androidTestImplementation 'com.android.support:support-annotations:27.0.2'
 }
+
+publishing {
+    publications {
+        aarRelease(MavenPublication) {}
+        aarDebug(MavenPublication) {}
+    }
+    repositories {
+        ivy {
+            ivyPattern('[organisation]/[module]/[revision]/ivy-[revision].xml')
+            artifactPattern('[organisation]/[module]/[revision]/[artifact]-[revision](-[classifier]).[ext]')
+        }
+    }
+}
+
+task updateSensorsIntefaceClassifierSnapshotBasic {
+    doLast {
+        bundleSnapshotBasicRelease.classifier snapshotRelease
+        bundleSnapshotBasicDebug.classifier snapshotDebug
+
+        publishing.publications.aarRelease.artifact bundleSnapshotBasicRelease
+        publishing.publications.aarDebug.artifact bundleSnapshotBasicDebug
+
+        project.getArtifacts().add("default", bundleSnapshotBasicDebug)
+    }
+}
+
+task updateSensorsIntefaceClassifierDemoBasic {
+    doLast {
+        bundleDemoBasicRelease.classifier demoRelease
+        bundleDemoBasicDebug.classifier demoDebug
+
+        publishing.publications.aarRelease.artifact bundleDemoBasicRelease
+        publishing.publications.aarDebug.artifact bundleDemoBasicDebug
+
+        project.getArtifacts().add("default", bundleDemoBasicDebug)
+    }
+}
+
+
+task spawnSensorsIntefaceSnapshotBasicArchives(dependsOn: ['snapshotVersion',
+                                                  'assembleSnapshotBasicDebug',
+                                                  'assembleSnapshotBasicRelease',
+                                                  'updateSensorsIntefaceClassifierSnapshotBasic'])
+
+task spawnSensorsIntefaceDemoBasicArchives(dependsOn: ['snapshotVersion', 'assembleDemoBasicDebug',
+                                              'assembleDemoBasicRelease', 'updateSensorsIntefaceClassifierDemoBasic'])
