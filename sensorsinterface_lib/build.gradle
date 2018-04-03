@@ -109,14 +109,14 @@ configurations.all {
 
 dependencies {
     api fileTree(include: '*.jar', dir: 'libs')
-    api 'com.android.support:support-annotations:27.0.2'
-    api 'com.android.support:support-v13:27.0.2'
+    api 'com.android.support:support-annotations:27.1.0'
+    api 'com.android.support:support-v13:27.1.0'
 
     // Testing dependencies
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
 	androidTestImplementation 'junit:junit:4.12'
-    androidTestImplementation 'com.android.support:support-annotations:27.0.2'
+    androidTestImplementation 'com.android.support:support-annotations:27.1.0'
 }
 
 publishing {
