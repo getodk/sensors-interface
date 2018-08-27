@@ -1,6 +1,6 @@
 package org.opendatakit.sensors.service;
 
-interface ODKSensorService {
+interface IODKSensorService {
   
    	/**
    	 * Connect to a Sensor
