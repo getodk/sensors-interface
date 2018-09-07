@@ -4,7 +4,7 @@ import org.opendatakit.sensors.SensorParameter;
 import org.opendatakit.sensors.SensorDataPacket;
 import org.opendatakit.sensors.SensorDataParseResponse;
 
-interface ODKSensorDriver {
+interface IODKSensorDriver {
   
 	/*
 	 * Get the sensor-specific command buffer to configure parameters. 

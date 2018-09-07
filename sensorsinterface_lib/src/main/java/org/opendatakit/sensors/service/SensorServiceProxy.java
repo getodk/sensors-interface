@@ -36,7 +36,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
  */
 public class SensorServiceProxy implements ServiceConnection {
 	
-	private ODKSensorService sensorSvcProxy;
+	private IODKSensorService sensorSvcProxy;
 	private String TAG = "MiddlewareProxy"; 
 	protected Context componentContext;
 	protected final AtomicBoolean isBoundToService = new AtomicBoolean(false);
@@ -70,7 +70,7 @@ public class SensorServiceProxy implements ServiceConnection {
 	@Override
 	public void onServiceConnected(ComponentName className, IBinder service) {
 		Log.d(TAG,"Bound to sensor service");
-		sensorSvcProxy = ODKSensorService.Stub.asInterface(service);
+		sensorSvcProxy = IODKSensorService.Stub.asInterface(service);
 		isBoundToService.set(true);
 	}
 

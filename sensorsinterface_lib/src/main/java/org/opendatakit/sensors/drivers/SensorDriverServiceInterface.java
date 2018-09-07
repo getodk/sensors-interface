@@ -37,7 +37,7 @@ import android.util.Log;
  * @author rohitchaudhri@gmail.com
  * 
  */
-public class SensorDriverServiceInterface extends ODKSensorDriver.Stub {
+public class SensorDriverServiceInterface extends IODKSensorDriver.Stub {
 
 	private static final String TAG = "SensorDriverSvcIf";
 
