@@ -109,8 +109,8 @@ configurations.all {
 
 dependencies {
     api fileTree(include: '*.jar', dir: 'libs')
-    api 'androidx.annotation:annotation:1.1.0'
-    api 'androidx.legacy:legacy-support-v13:1.0.0'
+    implementation 'androidx.annotation:annotation:1.1.0'
+    implementation 'androidx.legacy:legacy-support-v13:1.0.0'
 
     // Testing dependencies
     testImplementation 'junit:junit:4.12'
