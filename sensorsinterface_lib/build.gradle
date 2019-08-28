@@ -159,10 +159,12 @@ task updateSensorsIntefaceClassifierDemoBasic {
 }
 
 
-task spawnSensorsIntefaceSnapshotBasicArchives(dependsOn: ['snapshotVersion',
-                                                  'assembleSnapshotBasicDebug',
-                                                  'assembleSnapshotBasicRelease',
-                                                  'updateSensorsIntefaceClassifierSnapshotBasic'])
+task spawnSensorsIntefaceSnapshotBasicArchives{
+    dependsOn(['snapshotVersion','assembleSnapshotBasicDebug','assembleSnapshotBasicRelease',
+               'updateSensorsIntefaceClassifierSnapshotBasic'])
+}
 
-task spawnSensorsIntefaceDemoBasicArchives(dependsOn: ['snapshotVersion', 'assembleDemoBasicDebug',
-                                              'assembleDemoBasicRelease', 'updateSensorsIntefaceClassifierDemoBasic'])
+task spawnSensorsIntefaceDemoBasicArchives{
+    dependsOn(['snapshotVersion', 'assembleDemoBasicDebug','assembleDemoBasicRelease',
+               'updateSensorsIntefaceClassifierDemoBasic'])
+}
