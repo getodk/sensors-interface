@@ -135,7 +135,7 @@ publishing {
 }
 
 
-task spawnSensorsIntefaceSnapshotBasicArchives{
+task spawnSensorsInterfaceSnapshotBasicArchives{
     dependsOn('snapshotVersion')
     dependsOn('assembleSnapshotBasicDebug')
     dependsOn('assembleSnapshotBasicRelease')
@@ -150,7 +150,7 @@ task spawnSensorsIntefaceSnapshotBasicArchives{
     }
 }
 
-task spawnSensorsIntefaceDemoBasicArchives{
+task spawnSensorsInterfaceDemoBasicArchives{
     dependsOn('snapshotVersion')
     dependsOn('assembleDemoBasicDebug')
     dependsOn('assembleDemoBasicRelease')
@@ -164,3 +164,6 @@ task spawnSensorsIntefaceDemoBasicArchives{
         project.getArtifacts().add("default", bundleDemoBasicDebugAar)
     }
 }
+
+artifactoryPublish.mustRunAfter('spawnSensorsInterfaceSnapshotBasicArchives')
+artifactoryPublish.mustRunAfter('spawnSensorsInterfaceDemoBasicArchives')
