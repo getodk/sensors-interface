@@ -134,7 +134,11 @@ publishing {
     }
 }
 
-task updateSensorsIntefaceClassifierSnapshotBasic {
+
+task spawnSensorsInterfaceSnapshotBasicArchives{
+    dependsOn('snapshotVersion')
+    dependsOn('assembleSnapshotBasicDebug')
+    dependsOn('assembleSnapshotBasicRelease')
     doLast {
         bundleSnapshotBasicReleaseAar.classifier snapshotRelease
         bundleSnapshotBasicDebugAar.classifier snapshotDebug
@@ -146,7 +150,10 @@ task updateSensorsIntefaceClassifierSnapshotBasic {
     }
 }
 
-task updateSensorsIntefaceClassifierDemoBasic {
+task spawnSensorsInterfaceDemoBasicArchives{
+    dependsOn('snapshotVersion')
+    dependsOn('assembleDemoBasicDebug')
+    dependsOn('assembleDemoBasicRelease')
     doLast {
         bundleDemoBasicReleaseAar.classifier demoRelease
         bundleDemoBasicDebugAar.classifier demoDebug
@@ -158,13 +165,5 @@ task updateSensorsIntefaceClassifierDemoBasic {
     }
 }
 
-
-task spawnSensorsIntefaceSnapshotBasicArchives{
-    dependsOn(['snapshotVersion','assembleSnapshotBasicDebug','assembleSnapshotBasicRelease',
-               'updateSensorsIntefaceClassifierSnapshotBasic'])
-}
-
-task spawnSensorsIntefaceDemoBasicArchives{
-    dependsOn(['snapshotVersion', 'assembleDemoBasicDebug','assembleDemoBasicRelease',
-               'updateSensorsIntefaceClassifierDemoBasic'])
-}
+artifactoryPublish.mustRunAfter('spawnSensorsInterfaceSnapshotBasicArchives')
+artifactoryPublish.mustRunAfter('spawnSensorsInterfaceDemoBasicArchives')
