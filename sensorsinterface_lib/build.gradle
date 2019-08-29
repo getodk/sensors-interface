@@ -134,7 +134,11 @@ publishing {
     }
 }
 
-task updateSensorsIntefaceClassifierSnapshotBasic {
+
+task spawnSensorsIntefaceSnapshotBasicArchives{
+    dependsOn('snapshotVersion')
+    dependsOn('assembleSnapshotBasicDebug')
+    dependsOn('assembleSnapshotBasicRelease')
     doLast {
         bundleSnapshotBasicReleaseAar.classifier snapshotRelease
         bundleSnapshotBasicDebugAar.classifier snapshotDebug
@@ -146,7 +150,10 @@ task updateSensorsIntefaceClassifierSnapshotBasic {
     }
 }
 
-task updateSensorsIntefaceClassifierDemoBasic {
+task spawnSensorsIntefaceDemoBasicArchives{
+    dependsOn('snapshotVersion')
+    dependsOn('assembleDemoBasicDebug')
+    dependsOn('assembleDemoBasicRelease')
     doLast {
         bundleDemoBasicReleaseAar.classifier demoRelease
         bundleDemoBasicDebugAar.classifier demoDebug
@@ -156,15 +163,4 @@ task updateSensorsIntefaceClassifierDemoBasic {
 
         project.getArtifacts().add("default", bundleDemoBasicDebugAar)
     }
-}
-
-
-task spawnSensorsIntefaceSnapshotBasicArchives{
-    dependsOn(['snapshotVersion','assembleSnapshotBasicDebug','assembleSnapshotBasicRelease',
-               'updateSensorsIntefaceClassifierSnapshotBasic'])
-}
-
-task spawnSensorsIntefaceDemoBasicArchives{
-    dependsOn(['snapshotVersion', 'assembleDemoBasicDebug','assembleDemoBasicRelease',
-               'updateSensorsIntefaceClassifierDemoBasic'])
 }
