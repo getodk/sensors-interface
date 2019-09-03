@@ -167,3 +167,5 @@ task spawnSensorsInterfaceDemoBasicArchives{
 
 artifactoryPublish.mustRunAfter('spawnSensorsInterfaceSnapshotBasicArchives')
 artifactoryPublish.mustRunAfter('spawnSensorsInterfaceDemoBasicArchives')
+artifactoryPublish.mustRunAfter('connectedSnapshotBasicDebugAndroidTest')
+artifactoryPublish.mustRunAfter('connectedDemoBasicDebugAndroidTest')
